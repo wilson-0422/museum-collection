@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}修复台账 - 博物馆藏品管理系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>修复台账</h2>
+    {% if user %}
+    <a href="/restorations/create" class="btn btn-primary">新增修复</a>
+    {% endif %}
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>文物名称</th>
+                <th>修复人</th>
+                <th>修复方法</th>
+                <th>开始日期</th>
+                <th>费用(元)</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in restorations %}
+            <tr>
+                <td>{{ r.id }}</td>
+                <td><a href="/artifacts/{{ r.artifact_id }}">{{ r.artifact_name }}</a></td>
+                <td>{{ r.restorer }}</td>
+                <td>{{ r.method }}</td>
+                <td>{{ r.start_date }}</td>
+                <td>{{ r.cost }}</td>
+                <td><span class="badge badge-{{ r.status }}">{{ r.status }}</span></td>
+                <td><a href="/restorations/{{ r.id }}" class="btn btn-sm">查看</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

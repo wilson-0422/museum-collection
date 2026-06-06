@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}展览管理 - 博物馆藏品管理系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>展览管理</h2>
+    {% if user %}
+    <a href="/exhibitions/create" class="btn btn-primary">新增展览</a>
+    {% endif %}
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>展览名称</th>
+                <th>展馆</th>
+                <th>开始日期</th>
+                <th>结束日期</th>
+                <th>策展人</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for e in exhibitions %}
+            <tr>
+                <td>{{ e.id }}</td>
+                <td><a href="/exhibitions/{{ e.id }}">{{ e.name }}</a></td>
+                <td>{{ e.venue }}</td>
+                <td>{{ e.start_date }}</td>
+                <td>{{ e.end_date }}</td>
+                <td>{{ e.curator }}</td>
+                <td><span class="badge badge-{{ e.status }}">{{ e.status }}</span></td>
+                <td><a href="/exhibitions/{{ e.id }}" class="btn btn-sm">查看</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

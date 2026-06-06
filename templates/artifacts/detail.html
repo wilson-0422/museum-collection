@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}{{ artifact.name }} - 博物馆藏品管理系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>{{ artifact.name }}</h2>
+    <div>
+        {% if user %}
+        <a href="/artifacts/{{ artifact.id }}/edit" class="btn btn-primary">编辑</a>
+        {% endif %}
+        <a href="/artifacts" class="btn btn-outline">返回列表</a>
+    </div>
+</div>
+
+<div class="detail-grid">
+    <div class="detail-section">
+        <h3>基本信息</h3>
+        <div class="detail-row"><span class="detail-label">分类</span><span class="detail-value">{{ artifact.category }}</span></div>
+        <div class="detail-row"><span class="detail-label">年代</span><span class="detail-value">{{ artifact.era }}</span></div>
+        <div class="detail-row"><span class="detail-label">材质</span><span class="detail-value">{{ artifact.material }}</span></div>
+        <div class="detail-row"><span class="detail-label">尺寸</span><span class="detail-value">{{ artifact.dimensions }}</span></div>
+        <div class="detail-row"><span class="detail-label">来源</span><span class="detail-value">{{ artifact.origin }}</span></div>
+        <div class="detail-row"><span class="detail-label">状态</span><span class="detail-value"><span class="badge badge-{{ artifact.status }}">{{ artifact.status }}</span></span></div>
+        <div class="detail-row"><span class="detail-label">入库日期</span><span class="detail-value">{{ artifact.entry_date }}</span></div>
+    </div>
+    <div class="detail-section">
+        <h3>描述</h3>
+        <p>{{ artifact.description }}</p>
+    </div>
+</div>
+
+<div class="detail-grid">
+    <div class="detail-section">
+        <h3>养护记录 ({{ conservations | length }})</h3>
+        {% if conservations %}
+        <table class="table">
+            <thead>
+                <tr><th>养护方法</th><th>执行人</th><th>开始日期</th><th>结束日期</th></tr>
+            </thead>
+            <tbody>
+                {% for c in conservations %}
+                <tr>
+                    <td><a href="/conservations/{{ c.id }}">{{ c.method }}</a></td>
+                    <td>{{ c.performer }}</td>
+                    <td>{{ c.start_date }}</td>
+                    <td>{{ c.end_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="empty">暂无养护记录</p>
+        {% endif %}
+    </div>
+    <div class="detail-section">
+        <h3>修复记录 ({{ restorations | length }})</h3>
+        {% if restorations %}
+        <table class="table">
+            <thead>
+                <tr><th>修复方法</th><th>修复人</th><th>开始日期</th><th>状态</th></tr>
+            </thead>
+            <tbody>
+                {% for r in restorations %}
+                <tr>
+                    <td><a href="/restorations/{{ r.id }}">{{ r.method }}</a></td>
+                    <td>{{ r.restorer }}</td>
+                    <td>{{ r.start_date }}</td>
+                    <td><span class="badge badge-{{ r.status }}">{{ r.status }}</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="empty">暂无修复记录</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

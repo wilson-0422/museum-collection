@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}养护详情 - 博物馆藏品管理系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>养护详情</h2>
+    <a href="/conservations" class="btn btn-outline">返回列表</a>
+</div>
+
+<div class="detail-grid">
+    <div class="detail-section">
+        <h3>基本信息</h3>
+        <div class="detail-row"><span class="detail-label">关联文物</span><span class="detail-value"><a href="/artifacts/{{ conservation.artifact_id }}">{{ conservation.artifact_name }}</a></span></div>
+        <div class="detail-row"><span class="detail-label">养护方法</span><span class="detail-value">{{ conservation.method }}</span></div>
+        <div class="detail-row"><span class="detail-label">执行人</span><span class="detail-value">{{ conservation.performer }}</span></div>
+        <div class="detail-row"><span class="detail-label">开始日期</span><span class="detail-value">{{ conservation.start_date }}</span></div>
+        <div class="detail-row"><span class="detail-label">结束日期</span><span class="detail-value">{{ conservation.end_date }}</span></div>
+    </div>
+    <div class="detail-section">
+        <h3>备注</h3>
+        <p>{{ conservation.notes }}</p>
+    </div>
+</div>
+{% endblock %}

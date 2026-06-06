@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}{{ exhibition.name }} - 博物馆藏品管理系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>{{ exhibition.name }}</h2>
+    <a href="/exhibitions" class="btn btn-outline">返回列表</a>
+</div>
+
+<div class="detail-grid">
+    <div class="detail-section">
+        <h3>展览信息</h3>
+        <div class="detail-row"><span class="detail-label">展馆</span><span class="detail-value">{{ exhibition.venue }}</span></div>
+        <div class="detail-row"><span class="detail-label">开始日期</span><span class="detail-value">{{ exhibition.start_date }}</span></div>
+        <div class="detail-row"><span class="detail-label">结束日期</span><span class="detail-value">{{ exhibition.end_date }}</span></div>
+        <div class="detail-row"><span class="detail-label">策展人</span><span class="detail-value">{{ exhibition.curator }}</span></div>
+        <div class="detail-row"><span class="detail-label">状态</span><span class="detail-value"><span class="badge badge-{{ exhibition.status }}">{{ exhibition.status }}</span></span></div>
+    </div>
+    <div class="detail-section">
+        <h3>展览描述</h3>
+        <p>{{ exhibition.description }}</p>
+    </div>
+</div>
+
+<div class="detail-section">
+    <h3>参展文物 ({{ artifacts | length }})</h3>
+    {% if artifacts %}
+    <table class="table">
+        <thead>
+            <tr><th>编号</th><th>名称</th><th>分类</th><th>年代</th><th>状态</th></tr>
+        </thead>
+        <tbody>
+            {% for a in artifacts %}
+            <tr>
+                <td>{{ a.id }}</td>
+                <td><a href="/artifacts/{{ a.id }}">{{ a.name }}</a></td>
+                <td>{{ a.category }}</td>
+                <td>{{ a.era }}</td>
+                <td><span class="badge badge-{{ a.status }}">{{ a.status }}</span></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty">暂无参展文物</p>
+    {% endif %}
+</div>
+{% endblock %}

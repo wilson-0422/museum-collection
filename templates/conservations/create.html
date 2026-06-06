@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}新增养护记录 - 博物馆藏品管理系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>新增养护记录</h2>
+    <a href="/conservations" class="btn btn-outline">返回列表</a>
+</div>
+
+<div class="form-container">
+    <form method="POST" action="/conservations/create">
+        <div class="form-group">
+            <label for="artifact_id">关联文物</label>
+            <select id="artifact_id" name="artifact_id" required>
+                {% for a in artifacts %}
+                <option value="{{ a.id }}">{{ a.name }} ({{ a.category }}·{{ a.era }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="method">养护方法</label>
+            <input type="text" id="method" name="method" required>
+        </div>
+        <div class="form-group">
+            <label for="performer">执行人</label>
+            <input type="text" id="performer" name="performer" required>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="start_date">开始日期</label>
+                <input type="date" id="start_date" name="start_date" required>
+            </div>
+            <div class="form-group">
+                <label for="end_date">结束日期</label>
+                <input type="date" id="end_date" name="end_date">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="notes">备注</label>
+            <textarea id="notes" name="notes" rows="4"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">提交</button>
+    </form>
+</div>
+{% endblock %}

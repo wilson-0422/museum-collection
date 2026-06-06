@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}修复详情 - 博物馆藏品管理系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>修复详情</h2>
+    <a href="/restorations" class="btn btn-outline">返回列表</a>
+</div>
+
+<div class="detail-grid">
+    <div class="detail-section">
+        <h3>基本信息</h3>
+        <div class="detail-row"><span class="detail-label">关联文物</span><span class="detail-value"><a href="/artifacts/{{ restoration.artifact_id }}">{{ restoration.artifact_name }}</a></span></div>
+        <div class="detail-row"><span class="detail-label">修复人</span><span class="detail-value">{{ restoration.restorer }}</span></div>
+        <div class="detail-row"><span class="detail-label">修复方法</span><span class="detail-value">{{ restoration.method }}</span></div>
+        <div class="detail-row"><span class="detail-label">开始日期</span><span class="detail-value">{{ restoration.start_date }}</span></div>
+        <div class="detail-row"><span class="detail-label">结束日期</span><span class="detail-value">{{ restoration.end_date }}</span></div>
+        <div class="detail-row"><span class="detail-label">费用</span><span class="detail-value">{{ restoration.cost }} 元</span></div>
+        <div class="detail-row"><span class="detail-label">状态</span><span class="detail-value"><span class="badge badge-{{ restoration.status }}">{{ restoration.status }}</span></span></div>
+    </div>
+    <div class="detail-section">
+        <h3>修复描述</h3>
+        <p>{{ restoration.description }}</p>
+    </div>
+</div>
+{% endblock %}

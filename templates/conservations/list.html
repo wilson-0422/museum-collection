@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}养护记录 - 博物馆藏品管理系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>养护记录</h2>
+    {% if user %}
+    <a href="/conservations/create" class="btn btn-primary">新增养护</a>
+    {% endif %}
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>文物名称</th>
+                <th>养护方法</th>
+                <th>执行人</th>
+                <th>开始日期</th>
+                <th>结束日期</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in conservations %}
+            <tr>
+                <td>{{ c.id }}</td>
+                <td><a href="/artifacts/{{ c.artifact_id }}">{{ c.artifact_name }}</a></td>
+                <td>{{ c.method }}</td>
+                <td>{{ c.performer }}</td>
+                <td>{{ c.start_date }}</td>
+                <td>{{ c.end_date }}</td>
+                <td><a href="/conservations/{{ c.id }}" class="btn btn-sm">查看</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

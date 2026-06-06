@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}首页 - 博物馆藏品管理系统{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>博物馆藏品管理系统</h1>
+    <p>高效管理文物入库、养护、展览、修复及参观预约</p>
+    {% if not user %}
+    <div class="hero-actions">
+        <a href="/auth/login" class="btn btn-primary">登录系统</a>
+        <a href="/auth/register" class="btn btn-outline">注册账号</a>
+    </div>
+    {% endif %}
+</div>
+
+<div class="section">
+    <h2>最新入库文物</h2>
+    <div class="card-grid">
+        {% for artifact in recent_artifacts %}
+        <div class="card">
+            <div class="card-body">
+                <h3><a href="/artifacts/{{ artifact.id }}">{{ artifact.name }}</a></h3>
+                <p class="card-meta">{{ artifact.category }} · {{ artifact.era }}</p>
+                <p>{{ artifact.material }}</p>
+                <span class="badge badge-{{ artifact.status }}">{{ artifact.status }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="section">
+    <h2>当前展览</h2>
+    <div class="card-grid">
+        {% for exhibition in active_exhibitions %}
+        <div class="card">
+            <div class="card-body">
+                <h3><a href="/exhibitions/{{ exhibition.id }}">{{ exhibition.name }}</a></h3>
+                <p class="card-meta">{{ exhibition.venue }}</p>
+                <p>{{ exhibition.start_date }} 至 {{ exhibition.end_date }}</p>
+                <span class="badge badge-active">{{ exhibition.status }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

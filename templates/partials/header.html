@@ -1,0 +1,21 @@
+<header class="header">
+    <nav class="nav container">
+        <a href="/" class="nav-brand">博物馆藏品管理系统</a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">&#9776;</button>
+        <div class="nav-links">
+            <a href="/">首页</a>
+            <a href="/artifacts">文物管理</a>
+            <a href="/conservations">养护记录</a>
+            <a href="/exhibitions">展览管理</a>
+            <a href="/restorations">修复台账</a>
+            <a href="/reservations">参观预约</a>
+            {% if user %}
+            <a href="/dashboard">控制台</a>
+            <span class="nav-user">{{ user.display_name }}</span>
+            <a href="/auth/logout">退出</a>
+            {% else %}
+            <a href="/auth/login">登录</a>
+            {% endif %}
+        </div>
+    </nav>
+</header>

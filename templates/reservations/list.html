@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}参观预约 - 博物馆藏品管理系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>参观预约</h2>
+    <a href="/reservations/create" class="btn btn-primary">新增预约</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>访客姓名</th>
+                <th>联系电话</th>
+                <th>参观日期</th>
+                <th>人数</th>
+                <th>关联展览</th>
+                <th>状态</th>
+                {% if user %}
+                <th>操作</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in reservations %}
+            <tr>
+                <td>{{ r.id }}</td>
+                <td>{{ r.visitor_name }}</td>
+                <td>{{ r.phone }}</td>
+                <td>{{ r.visit_date }}</td>
+                <td>{{ r.visitor_count }}</td>
+                <td>{% if r.exhibition_name %}<a href="/exhibitions/{{ r.exhibition_id }}">{{ r.exhibition_name }}</a>{% else %}—{% endif %}</td>
+                <td><span class="badge badge-{{ r.status }}">{{ r.status }}</span></td>
+                {% if user %}
+                <td class="actions">
+                    {% if r.status == "待确认" %}
+                    <a href="/reservations/{{ r.id }}/confirm" class="btn btn-sm btn-primary">确认</a>
+                    <a href="/reservations/{{ r.id }}/cancel" class="btn btn-sm btn-danger">取消</a>
+                    {% endif %}
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

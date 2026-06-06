@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}新增展览 - 博物馆藏品管理系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>新增展览</h2>
+    <a href="/exhibitions" class="btn btn-outline">返回列表</a>
+</div>
+
+<div class="form-container">
+    <form method="POST" action="/exhibitions/create">
+        <div class="form-group">
+            <label for="name">展览名称</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="venue">展馆</label>
+            <input type="text" id="venue" name="venue" required>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="start_date">开始日期</label>
+                <input type="date" id="start_date" name="start_date" required>
+            </div>
+            <div class="form-group">
+                <label for="end_date">结束日期</label>
+                <input type="date" id="end_date" name="end_date">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="curator">策展人</label>
+            <input type="text" id="curator" name="curator">
+        </div>
+        <div class="form-group">
+            <label for="status">状态</label>
+            <select id="status" name="status">
+                <option value="筹备中">筹备中</option>
+                <option value="进行中">进行中</option>
+                <option value="已结束">已结束</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="description">展览描述</label>
+            <textarea id="description" name="description" rows="4"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="artifact_ids">参展文物ID（多个用逗号分隔，如：1,3,5）</label>
+            <input type="text" id="artifact_ids" name="artifact_ids" placeholder="1,3,5">
+        </div>
+        <div class="form-group">
+            <label>可选文物列表</label>
+            <div class="checkbox-list">
+                {% for a in artifacts %}
+                <label class="checkbox-item">
+                    <input type="checkbox" value="{{ a.id }}" onchange="updateArtifactIds()">
+                    {{ a.name }} ({{ a.category }}·{{ a.era }})
+                </label>
+                {% endfor %}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">提交</button>
+    </form>
+</div>
+{% endblock %}

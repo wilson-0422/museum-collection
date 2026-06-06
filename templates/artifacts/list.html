@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}文物管理 - 博物馆藏品管理系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>文物管理</h2>
+    {% if user %}
+    <a href="/artifacts/create" class="btn btn-primary">新增文物</a>
+    {% endif %}
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>名称</th>
+                <th>分类</th>
+                <th>年代</th>
+                <th>材质</th>
+                <th>状态</th>
+                <th>入库日期</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for artifact in artifacts %}
+            <tr>
+                <td>{{ artifact.id }}</td>
+                <td><a href="/artifacts/{{ artifact.id }}">{{ artifact.name }}</a></td>
+                <td>{{ artifact.category }}</td>
+                <td>{{ artifact.era }}</td>
+                <td>{{ artifact.material }}</td>
+                <td><span class="badge badge-{{ artifact.status }}">{{ artifact.status }}</span></td>
+                <td>{{ artifact.entry_date }}</td>
+                <td class="actions">
+                    <a href="/artifacts/{{ artifact.id }}" class="btn btn-sm">查看</a>
+                    {% if user %}
+                    <a href="/artifacts/{{ artifact.id }}/edit" class="btn btn-sm">编辑</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

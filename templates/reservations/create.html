@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}新增预约 - 博物馆藏品管理系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>新增参观预约</h2>
+    <a href="/reservations" class="btn btn-outline">返回列表</a>
+</div>
+
+<div class="form-container">
+    <form method="POST" action="/reservations/create">
+        <div class="form-group">
+            <label for="visitor_name">访客姓名</label>
+            <input type="text" id="visitor_name" name="visitor_name" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">联系电话</label>
+            <input type="text" id="phone" name="phone" required>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="visit_date">参观日期</label>
+                <input type="date" id="visit_date" name="visit_date" required>
+            </div>
+            <div class="form-group">
+                <label for="visitor_count">参观人数</label>
+                <input type="number" id="visitor_count" name="visitor_count" min="1" value="1" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exhibition_id">选择展览（可选）</label>
+            <select id="exhibition_id" name="exhibition_id">
+                <option value="">-- 不选择展览 --</option>
+                {% for e in exhibitions %}
+                <option value="{{ e.id }}">{{ e.name }} ({{ e.start_date }} 至 {{ e.end_date }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">提交预约</button>
+    </form>
+</div>
+{% endblock %}

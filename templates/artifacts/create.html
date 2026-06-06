@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}新增文物 - 博物馆藏品管理系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>新增文物</h2>
+    <a href="/artifacts" class="btn btn-outline">返回列表</a>
+</div>
+
+<div class="form-container">
+    <form method="POST" action="/artifacts/create">
+        <div class="form-group">
+            <label for="name">文物名称</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="category">分类</label>
+                <select id="category" name="category">
+                    <option value="陶瓷">陶瓷</option>
+                    <option value="青铜器">青铜器</option>
+                    <option value="书画">书画</option>
+                    <option value="玉器">玉器</option>
+                    <option value="丝织品">丝织品</option>
+                    <option value="其他">其他</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="era">年代</label>
+                <input type="text" id="era" name="era" placeholder="如：唐代、明代" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="material">材质</label>
+                <input type="text" id="material" name="material" required>
+            </div>
+            <div class="form-group">
+                <label for="dimensions">尺寸</label>
+                <input type="text" id="dimensions" name="dimensions" placeholder="如：高45cm 口径12cm">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="origin">来源</label>
+                <input type="text" id="origin" name="origin">
+            </div>
+            <div class="form-group">
+                <label for="status">状态</label>
+                <select id="status" name="status">
+                    <option value="在库">在库</option>
+                    <option value="在展">在展</option>
+                    <option value="养护中">养护中</option>
+                    <option value="修复中">修复中</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="entry_date">入库日期</label>
+            <input type="date" id="entry_date" name="entry_date">
+        </div>
+        <div class="form-group">
+            <label for="description">描述</label>
+            <textarea id="description" name="description" rows="4"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">提交</button>
+    </form>
+</div>
+{% endblock %}
